@@ -1,0 +1,11 @@
+{
+    "job": [
+        "dev",
+        "mgr"
+    ],
+    "mame": {
+         "last": "pet",
+         "first": "salsa"
+    },
+    "age": 20
+}
