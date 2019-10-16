@@ -1,3 +1,7 @@
+###############################################################
+# modules valirables local/global functions recursive
+# arguments decorators
+###############################################################
 
 #using mdules
 import sys

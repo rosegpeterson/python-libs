@@ -1,4 +1,11 @@
 #!/opt/anaconda3/bin/python
+
+###############################################################
+# loop regex help count zip  range map filter lambda pickle 
+# shelves numarray chain slice permutations 
+# repeat power min map pow enumarate 
+###############################################################
+
 import sys
 import os
 import shelve
@@ -202,6 +209,11 @@ def zipsample():
    Z= zip('abc', 'xyz')
    LZ = list(Z)
    print("LZ= ",LZ)  #LZ=  [('a', 'x'), ('b', 'y'), ('c', 'z')]
+
+   # izip() -> p, q, =>(p[0], q[0]), (p[1], q[1]),
+   # izip('ABCD', 'xy') --> Ax By
+   # izip_longest() -> p, q, ->(p[0], q[0]), (p[1], q[1]),…
+   # izip_longest('ABCD', 'xy', fillvalue='-') --> Ax By C- D-
 
 #zipsample()
 
@@ -413,9 +425,26 @@ def chainsample():
    for i in chain(L1,L2):
       print("i=",i)  #i=1,i=2,i=3,i=a,i=b,i=c
 
+   c= chain('ABC', 'DEF')
+   for i,j in enumerate(c):
+      print(i,j) #0 A -1 B -2 C -3 D -4 E -5 F
+
 #islicesample()
 
 def islicesample():
+   def islice(iterable, *args):
+   # islice('ABCDEFG', 2) --> A B
+   # islice('ABCDEFG', 2, 4) --> C D
+   # islice('ABCDEFG', 2, None) --> C D E F G
+   # islice('ABCDEFG', 0, None, 2) --> A C E G
+   s = slice(*args)
+   it = iter(range(s.start or 0, s.stop or sys.maxsize, s.step or 1))
+   nexti = next(it)
+   for i, element in enumerate(iterable):
+      if i == nexti:
+         yield element
+         nexti = next(it)
+
    l=islice('ABCDEFG',2)
    for i in l:
      print(i)  #A B
@@ -429,6 +458,14 @@ def islicesample():
 #islicesample()
 
 def permutasample():
+   def permutations(iterable, r=None):
+    pool = tuple(iterable)
+    n = len(pool)
+    r = n if r is None else r
+    for indices in product(range(n), repeat=r):
+        if len(set(indices)) == r:
+            yield tuple(pool[i] for i in indices)
+
    p=permutations('ABCD',2)
    c=1
    for i in p:
@@ -439,8 +476,24 @@ def permutasample():
 
 
 def repeatsample():
-  r=repeat(10,3)
-  print(r)  # 10 10 10  tres veces
+   def repeat(object, times=None):
+      # repeat(10, 3) --> 10 10 10
+      if times is None:
+          while True:
+             yield object
+      else:
+          for i in range(times):
+             yield object
+   r=repeat(10,3)
+   print(r)  # 10 10 10  tres veces
+
+   list(map(pow, range(10), repeat(2)))
+
+   print('a'*3)  #'aaa'
+
+   def repstr(string, length):
+      return (string * length)[0:length]
+   repstr("foobar", 14)
 
 #repeatsample()
 
