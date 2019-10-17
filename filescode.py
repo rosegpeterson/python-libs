@@ -147,6 +147,22 @@ def readbinfile(filename):
          print('Error reading file "%s" ' % filename)
    return list(mydata)
 
+def readbinfile_2():
+   import struct
+   packed = struct.pack('>i4sh',7,b'spam',8)  #create packed bin files
+   print(packed)  # 10 bytes
+   file = open('data.bin','wb')  #open wb write binary
+   file.write(packed)
+   file.close()
+	
+   data = open('data.bin', 'rb').read()  #read
+   print("data=", data)
+   print("data 4-8=",data[4:8])
+   lista=list(data)
+   print("list data=",lista)
+	
+   unpackedD = struct.unpack('>i4sh',data)  #unpacked bin files
+   print("unpacked data=", unpackedD)
 
 def readunicodefile(filename):
    S = 'sp\xc4m'
@@ -156,6 +172,51 @@ def readunicodefile(filename):
    file.close()
    text=open(filename, encoding='utf-8').read()
    return text
+
+def readunicodefile2(filename):
+   S = 'sp\xc4m'
+   print("S non Ascii unicode text for sp\xc4m => ", S, "S[2]=", S[2])
+   file = open('unidata.txt', 'w', encoding='utf-8')
+   file.write(S)
+   file.close()
+   text=open('unidata.txt', encoding='utf-8').read()
+   print("decode UTF-8 text =>", text)
+   print("len(text=>", len(text))
+
+def charfile():
+   file = open('data.txt')
+   while True:
+      char = file.read(1)
+      if not char: break  #EOF
+         print(char)
+   file.close()
+	
+   file = open('data.txt')
+   while True:
+      line = file.readline()
+      if not line: break  #EOF
+         print(line.rstrip())
+      next(file)
+   file.close()
+	
+   print(" --- \n")
+   print(open('data.txt').read())
+   print(sys.path)
+   L = [line.upper() for line in open('data.txt')]
+   print("L=", L)
+   L = [line.split() for line in open('data.txt')]
+   print("L=", L)
+   L = [line.rstrip() for line in open('data.txt') if line[0] == 'Hola']
+   print("L=", L)
+   L=sorted(open('data.txt'))
+   print("L=", L)
+   L=list(enumerate(open('data.txt')))
+   print("L=", L)
+   N=max(open('num.txt'))
+   print("N=",N)
+
+
+
 
 def readjsonfile(filename):
    import json
@@ -185,14 +246,43 @@ def readjsonfile(filename):
    json.dumps(x, indent=4)
    #Use the separators parameter to change the default separator:
    json.dumps(x, indent=4, separators=(". ", " = "))
-
    return p
 
-   # read using itertools zip
-   fileName1="test1"
-   fileName2="test2"
+reajson2():
+   name = dict(fisrt='bob', last='pet')
+   rec = dict(name=name, job=['dev','mgr'], age=40)
+   print("\nname:", name,"\nrec", rec)
+   J=json.dumps(rec)
+   print(J)
+   O = json.loads(J)
+   print(O)
+   	
+   p = json.load(open('testjson.txt'))
+   print("\n p=>", p)
+	
+   myfile = open("data.txt")
+   try:
+      print("si")
+   finally:
+      myfile.close()
+	
+# Json file: testjson.txt
+#	{
+#	    "job": [
+#	        "dev",
+#	        "mgr"
+#	    ],
+#	    "mame": {
+#	         "last": "pet",
+#	         "first": "salsa"
+#	    },
+#	    "age": 20
 
-   def read_zip(fileName1,fileName2):
+
+# read using itertools zip
+fileName1="test1"
+fileName2="test2"
+def read_zip(fileName1,fileName2):
       with open(fileName1) as textfile1, open(fileName2) as textfile2:
          textFiles= izip_longest(textfile1, textfile2)
          for x, y in textFiles:
@@ -200,8 +290,8 @@ def readjsonfile(filename):
             if y: y = y.strip()
             print("{0}\t{1}".format(x, y))
 
-   # manual read line by line
-   def read_file(file1,file2,line1,line2):
+# manual read line by line
+def read_file(file1,file2,line1,line2):
       if line1:
          line1 = file1.readline()
       if line2:
@@ -212,7 +302,7 @@ def readjsonfile(filename):
       else:
           return(0)
 
-   def callreadfile():
+def callreadfile():
       try:
          file1 = open(fileName1, 'r')
          file2 = open(fileName2, 'r')
@@ -319,4 +409,48 @@ def print_content_file(sFileName):
 	       print('First: "%s"' % parts[0])
 
 print_content_file("fileN.txt")
+
+Find in files
+import os
+import sys
+import fileinput
+
+# search for word line by line in a file and replace it if found in the same file
+def search_replace():
+    print ("Text to search for:")
+    textToSearch = input( "> " )
+
+    print ("Text to replace it with:")
+    textToReplace = input( "> " )
+
+    print ("File to perform Search-Replace on:")
+    fileToSearch  = input( "> " )
+
+    tempFile = open( fileToSearch, 'r+' )
+    for line in fileinput.input( fileToSearch ):
+        if textToSearch in line :
+            print('Match Found', textToSearch, 'in', line)
+            tempFile.write( line.replace( textToSearch, textToReplace ) )
+        else:
+            print('Match Not Found', textToSearch, 'in', line)
+    tempFile.close()
+
+    input( '\n\n Press Enter to exit...' )
+# search_replace()
+
+
+# search for word in a file and replace it if found in the same file
+def read_in_file():
+    # Read in the file
+    with open('file.txt', 'r') as file :
+      filedata = file.read()
+
+    # Replace the target string
+    filedata = filedata.replace('HI', 'hi')
+
+    # Write the file out again
+    with open('file.txt', 'w') as file:
+      file.write(filedata)
+read_in_file()
+
 
