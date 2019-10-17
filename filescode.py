@@ -5,13 +5,17 @@
 import sys
 try:
    import os
-   from itertools import izip
-   from itertools import izip_longest
+   from itertools import *
 except Exception as exc:
    print("Error import module: ", exc)
    sys.exit(1)
 
+DIRNAME="./"
+FILENAME="file.txt"
+
+#*********************************************
 #read dir
+#*********************************************
 def direxist(dirname):
    if os.path.exists(dirname): 
       print('dir "%s" exists.' % dirname)
@@ -34,12 +38,17 @@ def readdir(sPath):
          print('Error reading dir "%s" ' % sPath)
    return mydata
 
-# call
-DIRNAME="./"
-mydata=readdir(DIRNAME)
-print("data=>\n", mydata)
+def deldir(dirname):
+   os.rmdir("myfolder")
 
-# read file
+# call
+#mydata=readdir(DIRNAME)
+#print("data=>\n", mydata)
+
+#*********************************************
+#read file
+#*********************************************
+
 def fileexist(filename):
    if os.path.exists(filename) and os.path.isfile(filename) and os.path.getsize(filename) > 0:
       print('file "%s" exists.' % filename)
@@ -47,6 +56,43 @@ def fileexist(filename):
    else:
       print('file "%s" does not exist or zero' % filename)
       return False
+
+def readwith(filename):
+   with open(filename, "r") as fp:
+     fileData = fp.read()
+     print(fileData)
+
+def readfile(filename):
+   if fileexist(filename):
+      try:
+         f = open(filename, "r")
+         print("file => ", f.read())
+      except:
+         print("error open a file")
+      f.close()
+ 
+def readfilepartial(filename):
+   if fileexist(filename):
+      try:
+         f = open(filename, "r")
+         print("file partial => ", f.read(5))  #file partial =>  A B D
+      except:
+         print("error open a file")
+      f.close()
+
+def readfilelines(filename):
+   if fileexist(filename):
+      try:
+         f = open(filename, "r")
+         print("file lines => ", f.readline())  #read first line =>  A B D 1 4 H f A
+         print("file lines => ", f.readline())  #read scond line =>  1 2 3 8 1 4 6 3
+      except:
+         print("error open a file")
+      f.close()
+      # or read line by line
+      f = open(filename, "r")
+      for x in f:
+        print("line=", x)
 
 def readfile(filename):
    mydata=[]
@@ -85,7 +131,7 @@ def readbinfile(filename):
    import struct
    packed = struct.pack('>i4sh',7,b'spam',8)  #create packed bin files
    try:
-      f = open(filename,'wb')  #open wb write binary
+      f = open(filename,'wb')  #open wb binary
       f.write(packed)
       f.close()
    except Exception as exc:
@@ -123,7 +169,7 @@ def readjsonfile(filename):
    # the result is a Python dictionary:
    print(y["age"])
 
-   Convert from Python to JSON:
+   #Convert from Python to JSON:
    # a Python object (dict):
    x = {
      "name": "John",
@@ -158,14 +204,14 @@ def readjsonfile(filename):
    def read_file(file1,file2,line1,line2):
       if line1:
          line1 = file1.readline()
-       if line2:
+      if line2:
           line2 = file2.readline()
-       if line1 or line2:
+      if line1 or line2:
           print("Line1 = ", line1, "Line2: ", line2)
           read_file(file1,file2,line1,line2)
-       else:
-
+      else:
           return(0)
+
    def callreadfile():
       try:
          file1 = open(fileName1, 'r')
@@ -180,7 +226,9 @@ def readjsonfile(filename):
       print('Printing content of files - zip option')
       read_zip(fileName1,fileName2)
 
-#write a file
+#*********************************************
+#write and create a file
+#*********************************************
 def writefile(filename):
    mydata="1,6,1,8,43,2,3"
    try:
@@ -189,33 +237,26 @@ def writefile(filename):
       f.close()
    except IOError:
       print('Error writing file "%s" ' % filename)
-   return mydata
+   f = open(filename, 'r')
+   dataread=f.read()
+   print(dataread)  #1,6,1,8,43,2,3
+   f.close()
+
+#*********************************************
+#delete file
+#*********************************************
+def deletefile(filename):
+   if os.path.exists(filename):
+      os.remove(filename)
+   else:
+      print("The file does not exist")
 
 # use call
-FILENAME="./file.out"
-mydata=writefile(FILENAME)
-print("data=>\n", mydata)
+#writefile(FILENAME)
 
-FILENAME="./file.txt"
-mydata=readfile(FILENAME)
-print("data=>\n", mydata)
-
-FILENAME="./file.bin"
-mydata=readbinfile(FILENAME)
-print("data=>\n", mydata)
-
-FILENAME="./filedata.txt"
-mydata=readunicodefile(FILENAME)
-print("data=>\n", mydata)
-
-FILENAME="./file.jsn"
-mydata=readjsonfile(FILENAME)
-print("data=>\n", mydata)
-
-FILENAME1="./file1.txt"
-FILENAME2="./file2.txt"
-mydata=readzipfiles(FILENAME1,FILENAME2)
-print("data=>\n", mydata)
+#######################################################
+#  File sample scripts
+#######################################################
 
 #sort file
 def sortfile():
@@ -238,10 +279,44 @@ def sortfile():
    outfile = open(outfilename1, "w")
    outfile.write(str(uniqlines))
    outfile.close()
+   print("cat sorted file :", infilename,  outfilename1)
 
    #from cml-> sort <file name> | uniq
    #saving file in list and sorting list
    GoT = ['Tony', 'Rocket', 'Scott', 'Steve', 'Rocket', 'Natasha', 'Tony']
    mylist = sorted(list(dict.fromkeys(GoT)), reverse=True)
    print(mylist)
+
+#Create and Print content of file
+	
+def print_content_file(sFileName):
+	   print('Creating file "%s"' % sFileName, '\n')
+	   f = open('sFileName','w')  # write mode
+	   f.write('Hola,1 \n')
+	   f.write('Salsa,2 \n')
+	   f.write('Alo,2 \n')
+	   f.write('Tango,2 \n')
+	   f.close()
+	
+	   print('\nPrinting content of file "%s"' % sFileName)
+	   try:
+	       f = open('sFileName', 'r')
+	   except IOError:
+	       print ("Error opening file", sFileName)
+	       return 1
+	  
+	   text = f.read()
+	   #line = f.readLine()
+	   print(text)
+	   ts= text.split()
+	   print(ts)
+	   f.close()
+	
+	   print('\n Printing split lines of file "%s"' % sFileName)
+	   for line in  open('sFileName','r'):
+	       print("line",line)
+	       parts = line.split(',')
+	       print('First: "%s"' % parts[0])
+
+print_content_file("fileN.txt")
 
