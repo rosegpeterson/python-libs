@@ -3,31 +3,31 @@
 Collection of multiple python scripts using basic functionality of Python modules and libreries.
 
 
-##advancedcode.py 
+## advancedcode.py 
 
  loop regex help count zip  range map filter lambda pickle
  shelves numarray chain slice permutations
  repeat power min map pow enumarate
 
 
-##classcode.py
+## classcode.py
 
  classes
  subclasses
 
 
-##conceptscode.py
+## conceptscode.py
 
  modules valirables local/global functions recursive
  arguments decorators
 
 
-##filescode.py
+## filescode.py
 
  write read sort : dir files json-files
 
 
-##objecttypescode.py
+## objecttypescode.py
 
  object types in python
  mutuable:
@@ -42,7 +42,7 @@ Immutable:
        • Unicode
 
 
-##testcode.py
+## testcode.py
 
  unittes assert
  nose doctest py mock
