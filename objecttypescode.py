@@ -137,6 +137,17 @@ def listsample():
          print ("end1\n")
          break
 
+   # remove dups -> ['a', 'b', 'c']
+   mylist = ["a", "b", "a", "c", "c"]
+   mylist = list(dict.fromkeys(mylist))
+   print(mylist)
+   # remove dups and sort -> {'b', 'c', 'a'}
+   mylist = set(list(dict.fromkeys(mylist)))
+   # remove dups and sort -> {'a', 'b', 'c'}
+   mylist = sorted(list(dict.fromkeys(mylist)))
+   # remove dups and sort -> {'c', 'b', 'a'}
+   mylist = sorted(list(dict.fromkeys(mylist)),reverse=True)
+
    #sort lists
    L2=['aB','BD','aa']
    sorted(L2, key=str.lower, reverse=True)
