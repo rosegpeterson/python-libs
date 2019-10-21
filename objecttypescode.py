@@ -393,6 +393,11 @@ def stringsample():
    print(S.rstrip())  # remove whitespace on right
    print(S.lstrip())  # remove whitespace on left
 
+   #print format
+   n = 3
+   for i in range(1,n+1):
+      print(i,end='')  # end specify no newline, separator between prints = 123
+
    #slicing strings: 1, 2 ... slice from beginning, -1, -2.... slices at the end
    S='spam'
    print(S, S[1:3], S[:-1], S[1:])   # S=spam => pa spa pam
@@ -518,6 +523,11 @@ def numbersample():
    # OPERATORS
    a=1
    b=2
+   #Floor Division( // )
+   #Divides and returns the integer value of the quotient. It dumps the digits after the decimal.
+   #Modulus( % )
+   #Divides and returns the value of the remainder.
+
    print(a+b, a-b, b%a, a**b, 9//2)
    c=a+b
    c-=a
@@ -525,15 +535,39 @@ def numbersample():
    print(c)
    a=60 #0011 1100
    b=13 #0000 1101
+
+   #binary AND( & )
+   #It performs bit by bit AND operation on the two values. 
+   #Here, binary for 2 is 10, and that for 3 is 11. &-ing them results in 10, which is binary for 2. Similarly, &-ing 011(3) and 100(4) results in 000(0).
+
+   #binary OR( | )
+   #It performs bit by bit OR on the two values. Here, OR-ing 10(2) and 11(3) results in 11(3).
+   
+   #binary XOR( ^ )
+   #It returns the one’s complement of a number’s binary. It flips the bits. Binary for 2 is 00000010. Its one’s complement is 11111101. This is binary for -3. So, this results in -3. Similarly, ~1 results in -2.
    print(a&b, a|b, a^b, ~a)
    y=bin(a)
    print(y)
+
+   #Binary Left-Shift(<<)
+   #It shifts the value of the left operand the number of places to the left that the right operand specifies. Here, binary of 2 is 10. 2<<2 shifts it two places to the left. This results in 1000, which is binary for 8.
+   print(2<<2) #  = 8
+
+   #Binary Right-Shift(>>)
+   #It shifts the value of the left operand the number of places to the right that the right operand specifies. Here, binary of 3 is 11. 3>>2 shifts it two places to the right. This results in 00, which is binary for 0. Similarly, 3>>1 shifts it one place to the right. This results in 01, which is binary for 1.
+   print(3>>1) #  = 1
 
    # in true if finds var in a sequence - not in
    # is if variable point to same object - is not
    if (a == 60) : print ("values a is ", a)
 
    # print(int(2.14), float(2), 28 % 5) # %=reminder
+   num=5
+   if (num % 2) == 0:
+      print("{0} is Even number".format(num))
+   else:
+      print("{0} is Odd number".format(num))
+
    print(10//4, 10/4)
    print(0b11111111, 0xFF, bin(255), hex(255))  #binary 255, hex
    print("math ops",math.pi, math.sqrt(122), sum((1,2,3)), min(3,2,4), round(2.55))
@@ -560,6 +594,9 @@ def numbersample():
    print("list of 5 nodes=", L) #list of 5 nodes= [None, None, None, None, None]
    if type(L) == list:
       print("yes! is a list", type(L))
+
+   #sum of numbers start 1 to 100
+   print sum(range(1,101))  #5050
 
 # numbersample()
 
