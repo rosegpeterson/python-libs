@@ -417,6 +417,8 @@ def stringsample():
    print(S)   #That is 1 life bird
    
    #convert string lowercase and reverse word
+   #palindrome reverse string or number is same: salas = salas and 16461 = 16461
+   #polindrome
    print(" is_palindrome Deleved")
    word='Deleveled'
    reverse_word=(word[::-1])
@@ -429,6 +431,52 @@ def stringsample():
    filedata = "uno,dos,tres"
    newdata=filedata.replace('uno', 'UNO')
    print(newdata)
+
+   #in list of strings
+   s=['1', '2', '313', '454']
+   if all(item == item[::-1] for item in s):
+      print(True)
+
+   #from str to list 
+   x='1 2 313 454'
+   s = list(map(int, x.split()))
+   print(s)
+   if int(num) in range (0,101):
+      if all(str(item) == str(item)[::-1] for item in s):
+         print(True)
+
+   # int to str
+   num = input('Enter any number : ')
+   try:
+      val = int(num)
+      if num == str(num)[::-1]:
+         print('The given number is PALINDROME')
+      else:
+         print('The given number is NOT a palindrome')
+   except ValueError:
+      print("That's not a valid number, Try Again !")
+
+
+   #numeric values
+   num=3
+   s=[1, 2, 313, 454]
+   if int(num) in range (0,101):
+      if all(str(item) == str(item)[::-1] for item in s):
+         print(True)
+
+    #for numbers
+    n=int(input("Enter number:"))
+    temp=n
+    rev=0
+    while(n>0):
+       dig=n%10
+       rev=rev*10+dig
+       n=n//10
+    if(temp==rev):
+       print("The number is a palindrome!")
+    else:
+       print("The number isn't a palindrome!")
+   #is_palindrome = word.find(word[::-1])
 
 #stringsample()
 

@@ -50,13 +50,13 @@ def loopsample():
       else:
          print(key,"not found")
 
-   for i in range(3):
+   for i in range(3):  # range goes from (x, y-1) if x=1 amd y=4, goes from 1 to 3
       print(i,'xx')
 
    i=0
    X='spam'
    while i< len(X):
-      print(X[i], end=' ')
+      print(X[i], end=' ')  # end=' ' change format for end of line '' nada
       i += 1
 
    L= list(range(len(X)))
@@ -228,6 +228,46 @@ def countsamples():
 # #############################################
 # itertools
 # #############################################
+
+#list comprehension
+# find the squares of a number using the for loop:
+# list comprehensions returns lists, they consist of brackets containing the expression, which is executed for each element along with the for loop to iterate over each element
+def square_list_comprehension():
+   #using loop =>
+   numbers = [1, 2, 3, 4]
+   squares = []
+   for n in numbers:
+      squares.append(n**2)
+   print(squares) # Output: [1, 4, 9, 16]
+   #OR
+   #using list comprehension
+   numbers = [1, 2, 3, 4]
+   squares=[n**2 for n in numbers]
+
+def list_comprehension_conditions():
+   #find commun numbers
+   list_a = [1, 2, 3, 4]
+   list_b = [2, 3, 4, 5]
+   common_num = []
+   for a in list_a:
+     for b in list_b:
+       if a == b:
+         common_num.append(a)
+   print(common_num)  # Output [2, 3, 4]
+   #OR
+   #using list comprehension
+   common_num = [a for a in list_a for b in list_b if a == b]
+   print(common_num) # Output: [2, 3, 4]
+
+   #find  non equal numbers - return as a tupla
+   different_num = [(a, b) for a in list_a for b in list_b if a != b]
+   print(different_num) # Output: [(1, 2), (1, 7), (2, 7), (3, 2), (3, 7)]
+
+def list_comprehension_strings():
+   #lower case
+   list_a = ["Hello", "World", "In", "Python"]
+   small_list_a = [str.lower() for str in list_a]
+   print(small_list_a) # Output: ['hello', 'world', 'in', 'python']
 
 #zip izip
 def zipsample():
